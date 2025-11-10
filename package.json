@@ -1,0 +1,29 @@
+{
+  "name": "next-api-ai-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,md,json,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "husky": "^9.1.7"
+  }
+}
