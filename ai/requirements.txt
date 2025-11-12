@@ -2,3 +2,5 @@ Flask
 python-dotenv
 google-genai
 pydantic
+flask-cors
+gunicorn

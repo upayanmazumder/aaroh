@@ -18,5 +18,7 @@ COPY . .
 ENV PORT=5000
 EXPOSE 5000
 
-# Use the actual entrypoint file in this folder
-CMD ["python", "app.py"]
+# Use gunicorn in production for better concurrency and process management.
+# The container will run gunicorn with the Python module `app:app` and the
+# configuration in `gunicorn_conf.py`.
+CMD ["gunicorn", "wsgi:app", "-c", "gunicorn_conf.py"]

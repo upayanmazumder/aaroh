@@ -1,39 +1,22 @@
+"""Lightweight developer runner for the server package.
+
+This file is intentionally small: use the `server.create_app()` factory for
+production (gunicorn -> `server.wsgi:app`) and for tests. Running
+`python app.py` will start the Flask dev server bound to 0.0.0.0.
+"""
 import os
-from flask import Flask, request, jsonify
-from dotenv import load_dotenv
-from llm_processor import get_aaroh_output
 
-load_dotenv()
-
-# Initialize the Flask application
-app = Flask(__name__)
-# Add CORS support if you plan to connect a separate frontend (highly recommended)
-# from flask_cors import CORS
-# CORS(app)
-
-# --- API Endpoint ---
+from server import create_app
 
 
-@app.route("/simplify", methods=["POST"])
-def simplify_text_endpoint():
-    # 1. Input Validation
-    if not request.is_json or "text" not in request.json:
-        return jsonify({"error": "Missing 'text' field in JSON request"}), 400
-
-    complex_text = request.json.get("text")
-
-    # 2. Call the AI Logic (will be implemented in utils/llm_processor.py)
-    result, success = get_aaroh_output(complex_text)
-
-    # 3. Handle Response
-    if success:
-        return jsonify(result), 200
-    else:
-        # If the LLM call fails, return a server error
-        return jsonify({"error": result}), 500
+app = create_app()
 
 
-# --- Run the Server ---
+def _run_dev():
+    port = int(os.getenv("PORT", "5000"))
+    debug = app.config.get("DEBUG", True)
+    app.run(host="0.0.0.0", port=port, debug=debug)
+
+
 if __name__ == "__main__":
-    # You must run this using `python app.py` while your (venv) is activeq
-    app.run(debug=True)
+    _run_dev()
