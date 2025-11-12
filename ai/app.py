@@ -1,10 +1,8 @@
-# Aaroh_project/app.py
 import os
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
-from utils.llm_processor import get_aaroh_output  # Will use this function soon!
+from llm_processor import get_aaroh_output
 
-# Load environment variables (must be the first step)
 load_dotenv()
 
 # Initialize the Flask application

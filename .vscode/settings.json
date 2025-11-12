@@ -19,5 +19,6 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "colorWheel.settings.workspaceColor": "hsl(135,86%,47%)"
+  "colorWheel.settings.workspaceColor": "hsl(135,86%,47%)",
+  "cSpell.words": ["aaroh", "activeq", "dotenv"]
 }
