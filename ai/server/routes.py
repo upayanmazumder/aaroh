@@ -11,7 +11,9 @@ def simplify_text_endpoint():
         return jsonify({"error": "Missing 'text' field in JSON request"}), 400
 
     complex_text = request.json.get("text")
-    current_app.logger.info("Received simplify request; len(text)=%d", len(complex_text or ""))
+    current_app.logger.info(
+        "Received simplify request; len(text)=%d", len(complex_text or "")
+    )
 
     result, success = get_aaroh_output(complex_text)
 

@@ -4,6 +4,7 @@ This file is intentionally small: use the `server.create_app()` factory for
 production (gunicorn -> `server.wsgi:app`) and for tests. Running
 `python app.py` will start the Flask dev server bound to 0.0.0.0.
 """
+
 import os
 
 from server import create_app
