@@ -1,20 +1,22 @@
-# Stage 1 — dependencies
-FROM python:3.11-slim AS base
-WORKDIR /ai
+FROM python:3.11-slim
 
-# caching pip packages separately
-COPY requirements.txt .
+# Use a dedicated working directory
+WORKDIR /app
+
+# Prevent python from writing .pyc files and enable unbuffered logging
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install dependencies first (keeps layer cache stable when code changes)
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Stage 2 — final
-FROM python:3.11-slim AS runner
-WORKDIR /ai
-
-COPY --from=base /usr/local/lib/python3.11 /usr/local/lib/python3.11
-COPY --from=base /usr/local/bin /usr/local/bin
+# Copy app sources
 COPY . .
 
+# Runtime port
 ENV PORT=5000
 EXPOSE 5000
 
-CMD ["python", "main.py"]
+# Use the actual entrypoint file in this folder
+CMD ["python", "app.py"]
