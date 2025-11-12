@@ -23,6 +23,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
+RUN corepack enable && corepack prepare pnpm@latest --activate
+ENTRYPOINT []
+
 # copy built app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
