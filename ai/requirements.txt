@@ -1,2 +1,4 @@
-flask
-black
+Flask
+python-dotenv
+google-genai
+pydantic
