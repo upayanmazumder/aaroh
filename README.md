@@ -4,11 +4,8 @@
 [![API Build](https://img.shields.io/github/actions/workflow/status/upayanmazumder/aaroh/api.yml?label=API%20Backend&style=for-the-badge&logo=node.js&logoColor=white)](https://github.com/upayanmazumder/aaroh/actions/workflows/api.yml)
 [![App Build](https://img.shields.io/github/actions/workflow/status/upayanmazumder/aaroh/app.yml?label=Next.js%20App&style=for-the-badge&logo=next.js&logoColor=white)](https://github.com/upayanmazumder/aaroh/actions/workflows/app.yml)
 
+[![DeepWiki](https://img.shields.io/badge/DeepWiki-Read%20Docs-blueviolet?style=for-the-badge&logo=readthedocs&logoColor=white)](https://deepwiki.com/upayanmazumder/aaroh)
 [![License: MIT](https://img.shields.io/github/license/upayanmazumder/aaroh?style=for-the-badge&logo=mit&logoColor=white)](https://github.com/upayanmazumder/aaroh/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/upayanmazumder/aaroh?style=for-the-badge&logo=github&logoColor=white)](https://github.com/upayanmazumder/aaroh/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/upayanmazumder/aaroh?style=for-the-badge&logo=github&logoColor=white)](https://github.com/upayanmazumder/aaroh/network/members)
-[![Issues](https://img.shields.io/github/issues/upayanmazumder/aaroh?style=for-the-badge&logo=github&logoColor=white)](https://github.com/upayanmazumder/aaroh/issues)
-[![Contributors](https://img.shields.io/github/contributors/upayanmazumder/aaroh?style=for-the-badge&logo=github&logoColor=white)](https://github.com/upayanmazumder/aaroh/graphs/contributors)
 [![Last commit](https://img.shields.io/github/last-commit/upayanmazumder/aaroh?style=for-the-badge&logo=github&logoColor=white)](https://github.com/upayanmazumder/aaroh/commits/main)
 
 **Aaroh** is an AI-powered learning assistant that helps students move beyond rote memorization toward true comprehension.  
