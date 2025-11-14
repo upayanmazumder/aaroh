@@ -1,1 +1,247 @@
-
+{
+  "repo_notes": [
+    {
+      "content": "This wiki is intended to become the canonical developer and operator documentation for the Aaroh repository. Write for an audience of engineers and technical contributors: assume basic familiarity with Node.js, Python/Flask, Docker, and Next.js. Each page should include a short summary, a clear list of prerequisites, step-by-step commands (copy-paste friendly), and example requests or snippets where applicable. Prefer actionable guidance (how to run, configure, debug) over long theory. Use Windows PowerShell examples where helpful, and include the `docker-compose` commands shown in the repo root. When documenting environment variables, include default values and where to set them (local .env, CI, or container). Link related pages using the exact page titles listed in the `inpages` array."
+    }
+  ],
+  "inpages": [
+    "Overview",
+    "Architecture Overview",
+    "Getting Started",
+    "AI Service",
+    "LLM Processing Pipeline",
+    "Flask Application Structure",
+    "Deployment & Production Serving",
+    "API Endpoints",
+    "Configuration & Environment Variables",
+    "Frontend Service (app)",
+    "Configuration & Dependencies",
+    "Frontend Build & Deployment",
+    "Backend Service (api)",
+    "Implementation & Configuration",
+    "Backend Build & Deployment",
+    "Development Environment",
+    "Code Quality & Formatting",
+    "Containerization & Docker Compose",
+    "CI/CD Pipeline",
+    "Reference",
+    "Environment Variables Reference",
+    "Configuration Files"
+  ],
+  "pages": [
+    {
+      "title": "Overview",
+      "purpose": "Introduce the Aaroh repository, explaining its purpose as an AI-powered learning assistant and providing a high-level summary of the three-tier microservices architecture",
+      "page_notes": [
+        {
+          "content": "High-level summary of Aaroh: purpose, target users, and the three-service architecture (app, api, ai). Include a short demo workflow: user -> Next.js app -> Express API -> Flask AI. Add 2–3 bullet points describing features (simplification, analogies, quizzes) and a quick links section to 'Getting Started' and 'Architecture Overview'."
+        }
+      ]
+    },
+    {
+      "title": "Architecture Overview",
+      "purpose": "Describe the high-level system architecture, explaining how the Next.js frontend, Express.js backend, and Flask AI service interact and their respective responsibilities",
+      "parent": "Overview",
+      "page_notes": [
+        {
+          "content": "Describe component responsibilities, network boundaries, and typical data flow. Include a simple ASCII or Mermaid sequence diagram showing ports (3000, 4000, 5000) and the `docker-compose` network. Call out where to change service URLs (env vars `NEXT_PUBLIC_API_URL` and `AI_URL`)."
+        }
+      ]
+    },
+    {
+      "title": "Getting Started",
+      "purpose": "Provide setup and installation instructions for local development, including prerequisites, environment configuration, and running the services",
+      "parent": "Overview",
+      "page_notes": [
+        {
+          "content": "Give quickstart steps for Windows PowerShell: prerequisites (Docker, pnpm, Node, Python), how to build and run all services with `docker-compose up --build`, and how to tail logs. Provide copy-paste commands and a minimal troubleshooting checklist (common port conflicts, missing API keys)."
+        }
+      ]
+    },
+    {
+      "title": "AI Service",
+      "purpose": "Comprehensive overview of the Flask-based AI service, the core component responsible for text simplification, analogy generation, and quiz creation using LLMs",
+      "page_notes": [
+        {
+          "content": "Document where main Flask files live (`app.py`, `llm_processor.py`, `wsgi.py`, `server/routes.py`), how requests are handled, and which modules implement the LLM calls. Include notes on required keys (e.g., `GEMINI_API_KEY` or other provider tokens) and recommended local development patterns (use mock responses or `FLASK_DEBUG=true`)."
+        }
+      ]
+    },
+    {
+      "title": "LLM Processing Pipeline",
+      "purpose": "Deep dive into the two-step LLM processing chain in llm_processor.py, explaining the simplification and quiz generation logic, Pydantic schemas, and temperature settings",
+      "parent": "AI Service",
+      "page_notes": [
+        {
+          "content": "Explain the step-by-step LLM pipeline: input sanitization, simplification prompt, analogy prompt, and quiz generation prompt. Document key Pydantic models, expected input/output shapes, and configurable parameters (temperature, max tokens). Add an example input and the resulting simplified text + quiz JSON."
+        }
+      ]
+    },
+    {
+      "title": "Flask Application Structure",
+      "purpose": "Explain the Flask application factory pattern, configuration management, route definitions, and CORS setup used throughout the AI service",
+      "parent": "AI Service",
+      "page_notes": [
+        {
+          "content": "Detail the app factory (where `create_app` is defined if present), how `server/config.py` controls settings, and how `extensions.py` registers CORS and other extensions. Show where to add middleware or new routes and how to run the app locally vs with Gunicorn."
+        }
+      ]
+    },
+    {
+      "title": "Deployment & Production Serving",
+      "purpose": "Document the production deployment configuration including Docker containerization, Gunicorn worker management, timeout settings, and WSGI entrypoint",
+      "parent": "AI Service",
+      "page_notes": [
+        {
+          "content": "Explain the `Dockerfile` in `ai/`, `gunicorn_conf.py`, and `wsgi.py`. Provide recommended `gunicorn` settings (workers, timeouts) and healthcheck expectations. Include a note about memory/CPU considerations for LLM latency and how to configure container restarts in `docker-compose.yml`."
+        }
+      ]
+    },
+    {
+      "title": "API Endpoints",
+      "purpose": "Detail the AI service's HTTP endpoints (/simplify and /health), including request/response formats, error handling, and integration with the LLM processor",
+      "parent": "AI Service",
+      "page_notes": [
+        {
+          "content": "List endpoints and their payloads (example JSON request and response). Document status codes, typical errors, and retry guidance. Add an example `curl` and a PowerShell `Invoke-RestMethod` call to `/simplify`."
+        }
+      ]
+    },
+    {
+      "title": "Configuration & Environment Variables",
+      "purpose": "Explain all environment variables and configuration options for the AI service, including PORT, AAROH_ALLOWED_ORIGINS, FLASK_DEBUG, and GEMINI_API_KEY",
+      "parent": "AI Service",
+      "page_notes": [
+        {
+          "content": "Provide a complete table of env vars used by the AI service and other services. For each variable: name, purpose, example value, where to set it (local .env, Docker Compose, or CI), and whether it's required. Mention secure storage for secrets in CI."
+        }
+      ]
+    },
+    {
+      "title": "Frontend Service (app)",
+      "purpose": "Overview of the Next.js frontend application, its role in the system, and how it presents the AI-processed educational content to users",
+      "page_notes": [
+        {
+          "content": "Summarize the Next.js app's purpose, key pages (text input UI, results, quizzes), and where to find UI components in `src/app`. Mention `NEXT_PUBLIC_API_URL` and how the frontend calls the Express API."
+        }
+      ]
+    },
+    {
+      "title": "Configuration & Dependencies",
+      "purpose": "Detail the frontend's package.json configuration, Next.js 16 setup, React 19 usage, Tailwind CSS styling, and TypeScript configuration",
+      "parent": "Frontend Service (app)",
+      "page_notes": [
+        {
+          "content": "Document key dependencies and where to change versions. Include `pnpm` workspace guidance and any Next.js custom config in `next.config.ts`. Note TypeScript strictness level and where to add new type definitions."
+        }
+      ]
+    },
+    {
+      "title": "Frontend Build & Deployment",
+      "purpose": "Explain the Next.js build process, Docker containerization strategy for the frontend, and production optimization",
+      "parent": "Frontend Service (app)",
+      "page_notes": [
+        {
+          "content": "Provide the `pnpm build` and Docker build steps used for the app. Describe static optimizations and how to run the production server. Include sample Docker build commands and how the app service is wired in `docker-compose.yml`."
+        }
+      ]
+    },
+    {
+      "title": "Backend Service (api)",
+      "purpose": "Overview of the Express.js backend service, explaining its role as an API gateway between the frontend and AI service",
+      "page_notes": [
+        {
+          "content": "Explain the Express app role: proxying requests, simple middleware, and orchestrating calls to the AI service. Point to `api/src/index.ts` and the Dockerfile. Mention `AI_URL` env var and how to run the backend locally (pnpm start or Docker)."
+        }
+      ]
+    },
+    {
+      "title": "Implementation & Configuration",
+      "purpose": "Detail the Express.js implementation, TypeScript setup, API endpoints, CORS configuration, and request routing logic",
+      "parent": "Backend Service (api)",
+      "page_notes": [
+        {
+          "content": "Document main files, middleware, and TypeScript compile targets. Include example request flows from the frontend to the AI service and where to add authentication or rate-limiting. Provide `tsc` build and `node` run commands."
+        }
+      ]
+    },
+    {
+      "title": "Backend Build & Deployment",
+      "purpose": "Explain the TypeScript compilation process, Docker containerization, and production server setup for the backend service",
+      "parent": "Backend Service (api)",
+      "page_notes": [
+        {
+          "content": "Explain `pnpm install` and `pnpm build` for `api/`, how the Dockerfile builds and runs the compiled JS, and any runtime flags. Mention how `docker-compose` ensures the api waits for ai health."
+        }
+      ]
+    },
+    {
+      "title": "Development Environment",
+      "purpose": "Overview of the shared development tooling, workspace configuration, and development workflows that span all services",
+      "page_notes": [
+        {
+          "content": "Document `pnpm` workspace usage, recommended editor settings (link to `.vscode/settings.json`), and how to run services in dev mode. Include instructions for running just one service for faster iteration (example: run AI locally and point `AI_URL` to `localhost`)."
+        }
+      ]
+    },
+    {
+      "title": "Code Quality & Formatting",
+      "purpose": "Document the code formatting setup including Prettier, ESLint, Black formatter for Python, and pre-commit hooks with Husky",
+      "parent": "Development Environment",
+      "page_notes": [
+        {
+          "content": "List the linters/formatters used (`prettier`, `eslint`, Python Black where applicable) and Husky pre-commit hooks. Show how to run format checks (`pnpm run format` / `prettier --check`) and how to bypass hooks for emergency commits."
+        }
+      ]
+    },
+    {
+      "title": "Containerization & Docker Compose",
+      "purpose": "Explain the Docker Compose orchestration setup for running all three services locally, including network configuration and volume mounts",
+      "parent": "Development Environment",
+      "page_notes": [
+        {
+          "content": "Document `docker-compose.yml` at repo root, healthcheck semantics, service dependencies, and how to bring services up/down. Include `docker-compose up --build` and `docker-compose down` PowerShell examples and how to view logs (`docker-compose logs -f`)."
+        }
+      ]
+    },
+    {
+      "title": "CI/CD Pipeline",
+      "purpose": "Document the GitHub Actions workflows for automated building, testing, and pushing Docker images to GitHub Container Registry",
+      "parent": "Development Environment",
+      "page_notes": [
+        {
+          "content": "Summarize the workflows in `.github/workflows/` (`ai.yml`, `api.yml`, `app.yml`): what each job builds, test steps (if any), and where images are published. Include notes on required secrets and how to run the same build locally for debugging."
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "purpose": "Collection of reference materials including environment variables, configuration files, and project conventions",
+      "page_notes": [
+        {
+          "content": "Collect short reference tables and links used across the repo: ports, important files, and common commands. Use this as a single place to find quick facts."
+        }
+      ]
+    },
+    {
+      "title": "Environment Variables Reference",
+      "purpose": "Comprehensive list of all environment variables used across services with descriptions and default values",
+      "parent": "Reference",
+      "page_notes": [
+        {
+          "content": "Produce a table enumerating every environment variable in the repo (for `app`, `api`, and `ai`) with: name, service, description, example value, and whether it's required. Add a short snippet showing how to supply them in `docker-compose.yml`."
+        }
+      ]
+    },
+    {
+      "title": "Configuration Files",
+      "purpose": "Reference for all configuration files in the repository including .gitignore patterns, TypeScript configs, and editor settings",
+      "parent": "Reference",
+      "page_notes": [
+        {
+          "content": "List and briefly explain the purpose of major config files (e.g., `.gitignore`, `docker-compose.yml`, `pnpm-workspace.yaml`, `next.config.ts`, `tsconfig.json`, `.prettierrc`, `.husky/`). Link to examples and mention where to change defaults."
+        }
+      ]
+    }
+  ]
+}
